@@ -290,6 +290,8 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
         [self styleDefault:nil];
     } else if ([lcStatusBarStyle isEqualToString:@"lightcontent"]) {
         [self styleLightContent:nil];
+    } else if ([lcStatusBarStyle isEqualToString:@"darkcontent"]) {
+        [self styleDarkContent:nil];
     }
 }
 
@@ -305,6 +307,11 @@ static const void *kStatusBarStyle = &kStatusBarStyle;
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command
 {
     [self setStyleForStatusBar:UIStatusBarStyleLightContent];
+}
+
+- (void) styleDarkContent:(CDVInvokedUrlCommand*)command
+{
+    [self setStyleForStatusBar:UIStatusBarStyleDarkContent];
 }
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command

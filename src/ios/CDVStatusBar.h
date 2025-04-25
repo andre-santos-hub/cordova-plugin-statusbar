@@ -36,6 +36,7 @@
 
 - (void) styleDefault:(CDVInvokedUrlCommand*)command;
 - (void) styleLightContent:(CDVInvokedUrlCommand*)command;
+- (void) styleDarkContent:(CDVInvokedUrlCommand*)command;
 
 - (void) backgroundColorByName:(CDVInvokedUrlCommand*)command;
 - (void) backgroundColorByHexString:(CDVInvokedUrlCommand*)command;
