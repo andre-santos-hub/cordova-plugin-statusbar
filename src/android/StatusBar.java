@@ -115,15 +115,14 @@ public class StatusBar extends CordovaPlugin {
                 return true;
 
             case ACTION_STYLE_LIGHT_CONTENT:
-                String colorLight = "#FFFFFF"; // fallback color
-                try {
-                    colorLight = args.getString(0);
-                } catch (JSONException e) {
-                    LOG.e(TAG, "Missing or invalid color argument for light content; using default #FFFFFF", e);
-                }
-                String finalColorLight = colorLight;
                 activity.runOnUiThread(() -> setStatusBarStyle(STYLE_LIGHT_CONTENT));
-                activity.runOnUiThread(() -> setNavigationBarStyle(STYLE_LIGHT_CONTENT, finalColorLight));
+                activity.runOnUiThread(() -> {
+                    try {
+                        setNavigationBarStyle(STYLE_LIGHT_CONTENT, args.getBoolean(0));
+                    } catch (JSONException ignore) {
+                        LOG.e(TAG, "Missing or invalid color argument for light content; using default colour", e);
+                    }
+                });
                 return true;
 
 
@@ -136,7 +135,13 @@ public class StatusBar extends CordovaPlugin {
                 }
                 String finalColorLight = colorLight;
                 activity.runOnUiThread(() -> setStatusBarStyle(STYLE_DARK_CONTENT));
-                activity.runOnUiThread(() -> setNavigationBarStyle(STYLE_DARK_CONTENT, finalColorLight));
+                activity.runOnUiThread(() -> {
+                    try {
+                        setNavigationBarStyle(STYLE_DARK_CONTENT, args.getBoolean(0));
+                    } catch (JSONException ignore) {
+                        LOG.e(TAG, "Missing or invalid color argument for light content; using default colour", e);
+                    }
+                });
                 return true;
 
             default:
