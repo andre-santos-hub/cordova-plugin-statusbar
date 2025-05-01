@@ -37,10 +37,6 @@ module.exports = {
     styleLightContent: notSupported,
     styleDarkContent: notSupported,
     overlaysWebView: notSupported,
-    backgroundColorByName: notSupported,
-    backgroundColorByHexString: notSupported,
-    hide: notSupported,
-    show: notSupported,
     _ready: notSupported
 };
 
