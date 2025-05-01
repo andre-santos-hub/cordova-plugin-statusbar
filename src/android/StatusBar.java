@@ -70,25 +70,15 @@ public class StatusBar extends CordovaPlugin {
         window = activity.getWindow();
 
         activity.runOnUiThread(() -> {
-            // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially
-            // by the Cordova.
+            // Clear flag FLAG_FORCE_NOT_FULLSCREEN which is set initially by Cordova
             window.clearFlags(WindowManager.LayoutParams.FLAG_FORCE_NOT_FULLSCREEN);
 
-            // Read 'StatusBarOverlaysWebView' from config.xml, default is true.
             setStatusBarTransparent(preferences.getBoolean("StatusBarOverlaysWebView", true));
+            setStatusBarStyle(preferences.getString("StatusBarStyle", STYLE_LIGHT_CONTENT).toLowerCase());
 
-            // Read 'StatusBarBackgroundColor' from config.xml, default is #000000.
-            setStatusBarBackgroundColor(preferences.getString("StatusBarBackgroundColor", "#000000"));
-
-            // Read 'StatusBarStyle' from config.xml, default is 'lightcontent'.
-            setStatusBarStyle(
-                preferences.getString("StatusBarStyle", STYLE_LIGHT_CONTENT).toLowerCase()
-            );
-
-            // Read 'NavigationBarStyle' from config.xml, default is 'lightcontent'.
-            setNavigationBarStyle(
-                preferences.getString("NavigationBarStyle", STYLE_LIGHT_CONTENT, "#000000").toLowerCase()
-            );
+            String navBarStyle = preferences.getString("NavigationBarStyle", STYLE_LIGHT_CONTENT).toLowerCase();
+            String navBarColor = preferences.getString("NavigationBarColor", "#000000");
+            setNavigationBarStyle(navBarStyle, navBarColor);
         });
     }
 
@@ -125,13 +115,28 @@ public class StatusBar extends CordovaPlugin {
                 return true;
 
             case ACTION_STYLE_LIGHT_CONTENT:
+                String colorLight = "#FFFFFF"; // fallback color
+                try {
+                    colorLight = args.getString(0);
+                } catch (JSONException e) {
+                    LOG.e(TAG, "Missing or invalid color argument for light content; using default #FFFFFF", e);
+                }
+                String finalColorLight = colorLight;
                 activity.runOnUiThread(() -> setStatusBarStyle(STYLE_LIGHT_CONTENT));
-                activity.runOnUiThread(() -> setNavigationBarStyle(STYLE_LIGHT_CONTENT, args.getString(0)));
+                activity.runOnUiThread(() -> setNavigationBarStyle(STYLE_LIGHT_CONTENT, finalColorLight));
                 return true;
 
+
             case ACTION_STYLE_DARK_CONTENT:
+                String colorLight = "#000000"; // fallback color
+                try {
+                    colorLight = args.getString(0);
+                } catch (JSONException e) {
+                    LOG.e(TAG, "Missing or invalid color argument for light content; using default #000000", e);
+                }
+                String finalColorLight = colorLight;
                 activity.runOnUiThread(() -> setStatusBarStyle(STYLE_DARK_CONTENT));
-                activity.runOnUiThread(() -> setNavigationBarStyle(STYLE_DARK_CONTENT, args.getString(0)));
+                activity.runOnUiThread(() -> setNavigationBarStyle(STYLE_DARK_CONTENT, finalColorLight));
                 return true;
 
             default:
