@@ -35,12 +35,12 @@ var StatusBar = {
         exec(null, null, 'StatusBar', 'styleDefault', []);
     },
 
-    styleLightContent: function () {
+    styleLightContent: function (bgColour) {
         // light text ( to be used on a dark background )
         exec(null, null, 'StatusBar', 'styleLightContent', [bgColour]);
     },
 
-    styleDarkContent: function () {
+    styleDarkContent: function (bgColour) {
         // dark text ( to be used on a light background )
         exec(null, null, 'StatusBar', 'styleDarkContent', [bgColour]);
     },
