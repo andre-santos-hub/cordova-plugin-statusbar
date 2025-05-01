@@ -162,9 +162,9 @@ public class StatusBar extends CordovaPlugin {
             WindowInsetsControllerCompat windowInsetsControllerCompat = WindowCompat.getInsetsController(window, decorView);
 
             if (style.equals(STYLE_LIGHT_CONTENT)) {
-                windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
-            } else if (style.equals(STYLE_DEFAULT) || style.equals(STYLE_DARK_CONTENT)) {
                 windowInsetsControllerCompat.setAppearanceLightStatusBars(false);
+            } else if (style.equals(STYLE_DEFAULT) || style.equals(STYLE_DARK_CONTENT)) {
+                windowInsetsControllerCompat.setAppearanceLightStatusBars(true);
             } else {
                 LOG.e(TAG, "Invalid style, must be either 'default', 'darkcontent' or 'lightcontent'");
             }
